@@ -1,7 +1,4 @@
-﻿using Dreamteck.Forever;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SaveTheCat
 {

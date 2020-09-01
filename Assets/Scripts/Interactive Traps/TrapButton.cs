@@ -1,5 +1,4 @@
-﻿using Dreamteck.Forever;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,7 +54,7 @@ namespace SaveTheCat
 
         void AnimateButtonPush()
         {
-            Vector3 pos = this.transform.localPosition + (0.5f * this.transform.forward);
+            Vector3 pos = this.transform.localPosition + (-0.7f * this.transform.right);
             iTween.MoveFrom(this.gameObject, iTween.Hash("position", pos, "speed", 1, "islocal", true));
         }
 

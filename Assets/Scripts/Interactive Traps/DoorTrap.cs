@@ -40,7 +40,7 @@ namespace SaveTheCat
 
         public void AdjustSpeed()
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }
