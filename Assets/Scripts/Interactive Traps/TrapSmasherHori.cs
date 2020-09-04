@@ -14,9 +14,10 @@ namespace SaveTheCat
         [SerializeField]
         private ParticleSystem slamEffect;
         [SerializeField]
-        private float speed = 2, waitTime = 0;
-        private void Start()
+        private float speed = 2, waitTime = 0, slammingSpeed = 0.05f;
+        private void OnEnable()
         {
+            SmasherLeft.transform.localPosition = SmasherRight.transform.localPosition = Vector3.zero;
             if (fastMoving)
             {
                 speed = 0.1f;
@@ -30,9 +31,10 @@ namespace SaveTheCat
 
         public void Open()
         {
-            if (fastMoving)
+            if (speed <= slammingSpeed) 
             {
-                slamEffect.Play();
+                if (slamEffect)
+                    slamEffect.Play();
             }
             iTween.MoveBy(SmasherLeft, iTween.Hash("easetype", iTween.EaseType.linear, "amount", 4.5f * Vector3.left, "time", speed, "delay", waitTime));
             iTween.MoveBy(SmasherRight, iTween.Hash("easetype", iTween.EaseType.linear, "amount", 4.5f * Vector3.right, "time", speed, "delay", waitTime, "oncomplete", "Close", "oncompletetarget", this.gameObject));
@@ -53,6 +55,11 @@ namespace SaveTheCat
         public void AdjustSpeed()
         {
             speed = Mathf.Max(speed - (GameControl.Instance.gameSpeed * 0.1f), 0.1f);
+        }
+
+        private void OnDisable()
+        {
+            DisableTrap();
         }
     }
 }

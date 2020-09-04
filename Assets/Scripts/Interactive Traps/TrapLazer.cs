@@ -8,12 +8,17 @@ namespace SaveTheCat
     {
         public void AdjustSpeed()
         {
-            throw new System.NotImplementedException();
+
         }
 
         public void DisableTrap()
         {
             this.gameObject.SetActive(false);
+        }
+
+        public void ResetTrap()
+        {
+            this.gameObject.SetActive(true);
         }
     }
 }

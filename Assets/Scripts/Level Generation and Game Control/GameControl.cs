@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AmazingAssets.CurvedWorld;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,16 @@ public class GameControl : MonoBehaviour
 
     private static GameControl _instance;
     [SerializeField]
-    private int maxGameSpeed = 20;
-    public int gameSpeed;
+    private int maxGameSpeed = 160, TimeTillRampUp = 10, rampUpStep = 1;
+    public int gameSpeed = 25;
     private float gameTimer = 0;
-    public float playerSpeedStep; //set by the player object, states how many seconds are required before game ramps up speed
     public event EventHandler OnGameSpeedChanged;
+    public CurvedWorldController CurvedWorldController;
+
+    private void OnEnable()
+    {
+        CurvedWorldController = GameObject.FindGameObjectWithTag("CurvedWorldController").GetComponent <CurvedWorldController>();
+    }
 
     public static GameControl Instance
     {
@@ -28,16 +34,8 @@ public class GameControl : MonoBehaviour
                     _instance = container.AddComponent<GameControl>();
                 }
             }
-
             return _instance;
         }
-    }
-
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-        gameSpeed = 0;
     }
 
     // Update is called once per frame
@@ -47,9 +45,9 @@ public class GameControl : MonoBehaviour
         {
             gameTimer += Time.deltaTime;
 
-            if (gameTimer >= playerSpeedStep)
+            if (gameTimer >= TimeTillRampUp)
             {
-                gameSpeed++;
+                gameSpeed += rampUpStep;
                 gameTimer = 0;
                 FireOnGameSpeedChanged();
             }

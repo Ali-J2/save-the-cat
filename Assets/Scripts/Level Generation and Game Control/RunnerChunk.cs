@@ -11,7 +11,7 @@ namespace AmazingAssets.CurvedWorld.Example
 
         void Update()
         {
-            transform.Translate(spawner.moveDirection * spawner.movingSpeed * Time.deltaTime);
+            transform.Translate(spawner.moveDirection * (30 + GameControl.Instance.gameSpeed) * Time.deltaTime);
         }
 
         void FixedUpdate()

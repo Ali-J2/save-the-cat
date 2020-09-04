@@ -10,27 +10,21 @@ namespace SaveTheCat
         [SerializeField]
         private ParticleSystem slamEffect;
         [SerializeField]
-        private bool StartsFromTheTop, randomized, fastMoving;
+        private bool StartsFromTheTop, randomized;
         [SerializeField]
-        private float speed = 1.5f, waitTime = 0;
-        private void Start()
+        private float speed = 1.5f, waitTime = 0, slammingSpeed = 0.05f; //slamming speed is the speed at which this object is fast enough to play a particle effect on impact
+        private void OnEnable()
         {
+            this.transform.localPosition = new Vector3(this.transform.localPosition.x, 0.4f, this.transform.localPosition.z);
             AdjustSpeed();
             if (randomized)
             {
                 StartsFromTheTop = (Random.value > 0.5f);
             }
 
-            if (fastMoving)
-            {
-                speed = 0.05f;
-                waitTime = 1;
-            }
-
             if (StartsFromTheTop)
             {
-                //iTween.MoveBy(this.gameObject, iTween.Hash("amount", 4 * Vector3.up, "time", 0, "oncomplete", "Fall", "oncompletetarget", this.gameObject));
-                this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y + 4, this.transform.localPosition.z);
+                this.transform.localPosition = new Vector3(this.transform.localPosition.x, 4.4f, this.transform.localPosition.z);
                 Fall();
             }
             else
@@ -41,9 +35,12 @@ namespace SaveTheCat
 
         public void Rise()
         {
-            if (fastMoving)
+            if (speed <= slammingSpeed)
             {
-                slamEffect.Play();
+                if(slamEffect)
+                {
+                    slamEffect.Play();
+                }
             }
             iTween.MoveBy(this.gameObject, iTween.Hash("easetype", iTween.EaseType.linear, "amount", 4 * Vector3.up, "time", speed, "delay", waitTime, "oncomplete", "Fall", "oncompletetarget", this.gameObject));
         }
@@ -62,6 +59,16 @@ namespace SaveTheCat
         {
             speed = Mathf.Max(speed - (GameControl.Instance.gameSpeed * 0.1f), 0.1f);
             waitTime = Mathf.Max(waitTime -(GameControl.Instance.gameSpeed * 0.05f), 0.1f);
+        }
+
+        public void ResetTrap()
+        {
+
+        }
+
+        private void OnDisable()
+        {
+            DisableTrap();
         }
     }
 }

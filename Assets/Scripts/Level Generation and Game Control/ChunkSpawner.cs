@@ -18,7 +18,6 @@ namespace AmazingAssets.CurvedWorld.Example
 
         [HideInInspector]
         public Vector3 moveDirection = new Vector3(1, 0, 0);
-        public float movingSpeed = 1;
 
 
         public float chunkSize = 60;

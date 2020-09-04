@@ -14,7 +14,7 @@ namespace SaveTheCat
         [SerializeField]
         private float waitTime = 1;
 
-        private void Start()
+        private void OnEnable()
         {
             AdjustSpeed();
 
@@ -32,10 +32,12 @@ namespace SaveTheCat
         {
             if (startsFromTheRight)
             {
+                this.transform.localPosition = 5.5f * Vector3.right;
                 GoLeft();
             }
             else
             {
+                this.transform.localPosition = Vector3.zero;
                 GoRight();
             }
 
@@ -68,6 +70,11 @@ namespace SaveTheCat
         {
             speed = Mathf.Max(speed - GameControl.Instance.gameSpeed * 0.1f, 0.3f);
             waitTime = Mathf.Max(waitTime - (GameControl.Instance.gameSpeed * 0.05f), 0.1f);
+        }
+
+        private void OnDisable()
+        {
+            DisableTrap();
         }
     }
 }

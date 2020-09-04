@@ -13,15 +13,17 @@ namespace SaveTheCat
         [SerializeField]
         private float direction = 1;
         [SerializeField]
-        private Quaternion startPos;
+        private Quaternion startRotation;
         [SerializeField]
         private bool randomized;
         [SerializeField]
-        private bool inverted;
+        private bool inverted, disabled;
 
-        void Start()
+        private void OnEnable()
         {
-            startPos = transform.localRotation;
+            disabled = false;
+            startRotation = Quaternion.identity;
+            transform.localRotation = startRotation;
             if (randomized)
             {
                 inverted = (Random.value > 0.5f);
@@ -31,23 +33,26 @@ namespace SaveTheCat
         }
         void Update()
         {
-            Quaternion a = startPos;
-
-            if (inverted)
+            if(!disabled)
             {
-                a.z += -direction * (delta * Mathf.Sin(Time.time * speed));
-            }
-            else
-            {
-                a.z += direction * (delta * Mathf.Sin(Time.time * speed));
-            }
+                Quaternion a = startRotation;
 
-            transform.localRotation = a;
+                if (inverted)
+                {
+                    a.z += -direction * (delta * Mathf.Sin(Time.time * speed));
+                }
+                else
+                {
+                    a.z += direction * (delta * Mathf.Sin(Time.time * speed));
+                }
+
+                transform.localRotation = a;
+            }
         }
 
         public void DisableTrap()
         {
-            this.enabled = false;
+            disabled = true;
         }
 
         public void AdjustSpeed()

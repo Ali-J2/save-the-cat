@@ -11,11 +11,12 @@ namespace SaveTheCat
         public GameObject[] trapObjects;
         bool pressedBefore;
 
-        private void Start()
+        private void OnEnable()
         {
             if (gameObject.GetComponent<Renderer>())
             {
                 trapStatus.OnButtonPressed += ChangeButtonColor;
+                gameObject.GetComponent<Renderer>().material.color = Color.yellow;
             }
         }
 
@@ -64,6 +65,19 @@ namespace SaveTheCat
             {
                 trapStatus.OnButtonPressed -= ChangeButtonColor;
             }
+        }
+
+        public void resetButton()
+        {
+            pressedBefore = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+            trapStatus.OnButtonPressed += ChangeButtonColor;
+            trapStatus.resetTrapStatus();
+        }
+
+        private void OnDisable()
+        {
+            resetButton();
         }
     }
 }

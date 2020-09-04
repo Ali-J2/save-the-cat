@@ -11,7 +11,7 @@ namespace SaveTheCat
         [SerializeField]
         private bool StartsOpen, randomized;
 
-        private void Start()
+        private void OnEnable()
         {
             //if there is randomization, the door randomly starts off open
             if (randomized)
@@ -21,11 +21,12 @@ namespace SaveTheCat
             //if you want the door to start out open, have it automatically move to the open position
             if (StartsOpen)
             {
-                iTween.MoveBy(this.gameObject, moveDistance * Vector3.up, 0);
+                this.transform.localPosition = Vector3.up * moveDistance;
             }
 
             AdjustSpeed();
         }
+
         public void DisableTrap()
         {
             if (StartsOpen)
@@ -41,6 +42,16 @@ namespace SaveTheCat
         public void AdjustSpeed()
         {
 
+        }
+
+        public void ResetTrap()
+        {
+            this.transform.localPosition = new Vector3(this.transform.localPosition.x, 0, this.transform.localPosition.z);
+        }
+
+        private void OnDisable()
+        {
+            ResetTrap();
         }
     }
 }

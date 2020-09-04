@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -7,8 +8,11 @@ namespace AmazingAssets.CurvedWorld.Example
 {
     public class TrapSpawner : MonoBehaviour
     {
-        public GameObject[] traps;
+        [SerializeField]
+        private GameObject[] traps;
         public float spawnRate = 1; //time in seconds that it takes for a trap to spawn
+
+        private List<int> _trapChooseRandom;
 
         [Range(0f, 1f)]
         public float spawnRandomizer = 0.5f;
@@ -20,42 +24,68 @@ namespace AmazingAssets.CurvedWorld.Example
 
         [Space(10)]
         public Vector3 moveDirection = new Vector3(-1, 0, 0);
-        public float moveSpeed = 3;
-        
-        
 
-        float deltaTime;
+        float TimeCounter;
+        private int _currentIndex = 0; //for use with choosing from list of random ints
 
-        // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
-
+            traps = new GameObject[transform.GetChild(0).childCount];
+            for (int i = 0; i < transform.GetChild(0).transform.childCount; i++)
+            {
+                traps[i] = transform.GetChild(0).GetChild(i).gameObject;
+            }
+            _trapChooseRandom = Enumerable.Range(0, traps.Length).ToList();
+            Utils.Shuffle(_trapChooseRandom);
         }
 
         // Update is called once per frame
         void Update()
         {
-            deltaTime += Time.deltaTime;
+            TimeCounter += Time.deltaTime;
 
-            if(deltaTime > spawnRate)
+            if(TimeCounter > spawnRate)
             {
-                deltaTime = 0;
+                TimeCounter = 0;
 
                 if(Random.value > spawnRandomizer)
                 {
-                    int index = Random.Range(0, traps.Length);
+                    int index = chooseTrap();
 
-                    GameObject trapObj = Instantiate(traps[index]);
-                    trapObj.SetActive(true);
-
-                    trapObj.transform.position = transform.position;
-                    trapObj.transform.rotation = Quaternion.Euler(rotation);
-
-                    SpawnedTrap trapScript = trapObj.GetComponent<SpawnedTrap>();
-                    trapScript.moveDirection = moveDirection;
-                    trapScript.moveSpeed = moveSpeed;
+                    ActivateTrap(traps[index].gameObject);
                 }
             }
         }
+
+
+        void ActivateTrap(GameObject trap)
+        {
+            if(!trap.activeSelf)
+            {
+                trap.SetActive(true);
+                trap.transform.position = transform.position;
+                trap.transform.rotation = Quaternion.Euler(rotation);
+
+                SpawnedTrap trapScript = trap.GetComponent<SpawnedTrap>();
+                trapScript.moveDirection = moveDirection;
+            }
+        }
+
+        private int chooseTrap ()
+        {
+            int result = _trapChooseRandom[_currentIndex];
+
+            _currentIndex++;
+
+            if(_currentIndex >= _trapChooseRandom.Count)
+            {
+                _currentIndex = 0;
+                Utils.Shuffle(_trapChooseRandom);
+            }
+
+            return result;
+        }
+
+        
     }
 }

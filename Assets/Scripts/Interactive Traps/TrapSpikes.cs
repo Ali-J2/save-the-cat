@@ -10,7 +10,7 @@ namespace SaveTheCat
         private bool StartsFromTheTop, randomized;
         [SerializeField]
         private float speed = 0.05f, waitTime = 1;
-        private void Start()
+        private void OnEnable()
         {
             AdjustSpeed();
             if (randomized)
@@ -19,11 +19,12 @@ namespace SaveTheCat
             }
             if (StartsFromTheTop)
             {
-                this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y + 2, this.transform.localPosition.z);
+                this.transform.localPosition = new Vector3(this.transform.localPosition.x, 1, this.transform.localPosition.z);
                 Fall();
             }
             else
             {
+                this.transform.localPosition = new Vector3(this.transform.localPosition.x, -1, this.transform.localPosition.z);
                 Rise();
             }
         }
@@ -36,7 +37,6 @@ namespace SaveTheCat
         public void Fall()
         {
             iTween.MoveBy(this.gameObject, iTween.Hash("name", "smasherMovement", "delay", waitTime, "easetype", iTween.EaseType.linear, "amount", 2 * Vector3.down, "time", speed, "oncomplete", "Rise", "oncompletetarget", this.gameObject));
-
         }
 
         public void DisableTrap()
@@ -47,6 +47,11 @@ namespace SaveTheCat
         public void AdjustSpeed()
         {
             waitTime = Mathf.Max(waitTime - (GameControl.Instance.gameSpeed * 0.05f), 0.15f);
+        }
+
+        private void OnDisable()
+        {
+            DisableTrap();
         }
     }
 }

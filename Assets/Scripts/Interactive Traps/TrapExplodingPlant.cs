@@ -17,7 +17,7 @@ namespace SaveTheCat
         private TrapStatus trapStatus;
 
         // Start is called before the first frame update
-        void Start()
+        void OnEnable()
         {
             trapStatus.OnButtonPressed += ChangePlantColor;
         }
@@ -42,7 +42,19 @@ namespace SaveTheCat
 
         public void AdjustSpeed()
         {
-            throw new NotImplementedException();
+
+        }
+
+        public void ResetTrap()
+        {
+            plant.SetActive(true);
+            this.GetComponent<BoxCollider>().enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            trapStatus.OnButtonPressed -= ChangePlantColor;
+            ResetTrap();
         }
     }
 }
