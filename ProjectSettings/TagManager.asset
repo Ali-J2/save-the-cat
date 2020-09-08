@@ -4,7 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Climb
+  - Fly
   - CurvedWorldController
+  - Animal
+  - Water
+  - Stair
   layers:
   - Default
   - TransparentFX
@@ -26,17 +31,17 @@ TagManager:
   - 
   - 
   - 
+  - Animal
+  - 
+  - 
+  - Enemy
   - 
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Item
   - 
   m_SortingLayers:
   - name: Default

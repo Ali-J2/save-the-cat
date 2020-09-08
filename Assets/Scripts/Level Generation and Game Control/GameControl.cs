@@ -10,9 +10,9 @@ public class GameControl : MonoBehaviour
     private static GameControl _instance;
     [SerializeField]
     private int maxGameSpeed = 160, TimeTillRampUp = 10, rampUpStep = 1;
-    public int gameSpeed = 25;
+    public float gameSpeed = 25;
     private float gameTimer = 0;
-    public event EventHandler OnGameSpeedChanged;
+    public event EventHandler GameSpeedChanged;
     public CurvedWorldController CurvedWorldController;
 
     private void OnEnable()
@@ -49,13 +49,13 @@ public class GameControl : MonoBehaviour
             {
                 gameSpeed += rampUpStep;
                 gameTimer = 0;
-                FireOnGameSpeedChanged();
+                FireGameSpeedChanged();
             }
         }
     }
 
-    public void FireOnGameSpeedChanged()
+    public void FireGameSpeedChanged()
     {
-        OnGameSpeedChanged?.Invoke(this, EventArgs.Empty);
+        GameSpeedChanged?.Invoke(this, EventArgs.Empty);
     }
 }

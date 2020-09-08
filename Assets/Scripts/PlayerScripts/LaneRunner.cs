@@ -11,22 +11,10 @@ namespace SaveTheCat
         private int laneCount;
 
         [SerializeField]
-        public int lane   // property
+        public int lane
         {
-            get;   // get method
-            private set; // set method
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            get;
+            private set; 
         }
 
         private void OnTriggerEnter(Collider other)
@@ -66,8 +54,6 @@ namespace SaveTheCat
 
             Vector3 newPos = new Vector3(0, 0, -lane * laneWidth);
             iTween.MoveTo(this.gameObject, iTween.Hash("position", newPos, "islocal", true));
-
-            Debug.Log("moved to lane " + lane);
         }
     }
 }
