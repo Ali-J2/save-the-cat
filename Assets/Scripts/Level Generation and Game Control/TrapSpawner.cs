@@ -9,6 +9,8 @@ public class TrapSpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] traps;
+    [SerializeField]
+    private Transform trapPool;
     public float spawnRate = 5; //time in seconds that it takes for a trap to spawn
     public float maxRandomTimeAdded = 5f;
 
@@ -31,13 +33,7 @@ public class TrapSpawner : MonoBehaviour
     {
         GameControl.Instance.GameSpeedChanged += OnGameSpeedChanged;
         _randomTimeAdded = Random.Range(-2, maxRandomTimeAdded);
-        traps = new GameObject[transform.GetChild(0).childCount];
-        for (int i = 0; i < transform.GetChild(0).transform.childCount; i++)
-        {
-            traps[i] = transform.GetChild(0).GetChild(i).gameObject;
-        }
-        _trapChooseRandom = Enumerable.Range(0, traps.Length).ToList();
-        Utils.Shuffle(_trapChooseRandom);
+        setUpTrapPool();
     }
 
     // Update is called once per frame
@@ -48,7 +44,6 @@ public class TrapSpawner : MonoBehaviour
         if (TimeCounter > spawnRate + _randomTimeAdded)
         {
             TimeCounter = 0;
-
             _randomTimeAdded = Random.Range(1, maxRandomTimeAdded);
 
             int index = chooseTrap();
@@ -88,5 +83,16 @@ public class TrapSpawner : MonoBehaviour
     private void OnGameSpeedChanged(object sender, EventArgs e)
     {
         spawnRate = Mathf.Max(0, spawnRate - (0.01f * GameControl.Instance.gameSpeed));
+    }
+
+    private void setUpTrapPool()
+    {
+        traps = new GameObject[trapPool.childCount];
+        for (int i = 0; i < trapPool.childCount; i++)
+        {
+            traps[i] = trapPool.GetChild(i).gameObject;
+        }
+        _trapChooseRandom = Enumerable.Range(0, traps.Length).ToList();
+        Utils.Shuffle(_trapChooseRandom);
     }
 }

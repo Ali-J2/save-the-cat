@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDistance: 6
   StartsOpen: 1
-  randomized: 0
+  randomized: 1
 --- !u!65 &1718612083358977954
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -333,7 +333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1718612084776925220
 Transform:
   m_ObjectHideFlags: 0

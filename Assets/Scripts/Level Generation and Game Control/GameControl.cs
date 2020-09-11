@@ -17,7 +17,10 @@ public class GameControl : MonoBehaviour
 
     private void OnEnable()
     {
-        CurvedWorldController = GameObject.FindGameObjectWithTag("CurvedWorldController").GetComponent <CurvedWorldController>();
+        if(!CurvedWorldController)
+        {
+            CurvedWorldController = GameObject.FindGameObjectWithTag("CurvedWorldController").GetComponent<CurvedWorldController>();
+        }
     }
 
     public static GameControl Instance
