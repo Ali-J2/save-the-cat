@@ -12,6 +12,9 @@ public class PathCurveController : MonoBehaviour
     private float randomX, randomY, startX, startY;
 
     [SerializeField]
+    private float lowerHori, upperHori, lowerVert, upperVert;
+
+    [SerializeField]
     private float pathChangeDuration;
     float t;
     // Start is called before the first frame update
@@ -26,8 +29,8 @@ public class PathCurveController : MonoBehaviour
         if(!pathChangeInProgress)
         {
             pathChangeInProgress = true;
-            randomX = Random.Range(-6, 6);
-            randomY = Random.Range(-6, 6);
+            randomX = Random.Range(lowerHori, upperHori);
+            randomY = Random.Range(lowerVert, upperVert);
             startX = cwc.bendHorizontalSize;
             startY = cwc.bendVerticalSize;
             t = 0;

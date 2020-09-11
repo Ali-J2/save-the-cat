@@ -21,7 +21,7 @@ namespace SaveTheCat
         {
             if (LayerMask.NameToLayer("Traps") == other.gameObject.layer)
             {
-                Debug.Log("You dead.");
+                Debug.Log("BAM!");
             }
 
             if (LayerMask.NameToLayer("Obstacles") == other.gameObject.layer)

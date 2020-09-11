@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.28091362, g: 0.366128, b: 0.49844766, a: 1}
+  m_IndirectSpecularColor: {r: 0.28091347, g: 0.366128, b: 0.4984493, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -203,6 +203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b121f9f695ecf640b5bf268ed782c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lowerHori: -4
+  upperHori: 4
+  lowerVert: -4
+  upperVert: 4
   pathChangeDuration: 10
 --- !u!1001 &5612899
 PrefabInstance:
@@ -3900,6 +3904,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door Trap Three Doors
       objectReference: {fileID: 0}
+    - target: {fileID: 860040480456201708, guid: 0f4be7dbead68c9428e8d7ff1df2b091, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274942736820372179, guid: 0f4be7dbead68c9428e8d7ff1df2b091, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 77d47cb7fc212004a9a819b660b43263, type: 2}
     - target: {fileID: 4654608916803245655, guid: 0f4be7dbead68c9428e8d7ff1df2b091, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3944,6 +3956,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5405549032688380529, guid: 0f4be7dbead68c9428e8d7ff1df2b091, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 77d47cb7fc212004a9a819b660b43263, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f4be7dbead68c9428e8d7ff1df2b091, type: 3}
 --- !u!4 &1253244203 stripped
@@ -5855,7 +5871,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1945223820}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2, y: 1, z: 1}
