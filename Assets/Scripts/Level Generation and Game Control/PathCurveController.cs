@@ -12,7 +12,7 @@ public class PathCurveController : MonoBehaviour
     private float randomX, randomY, startX, startY;
 
     [SerializeField]
-    private float lowerHori, upperHori, lowerVert, upperVert;
+    private float lowerHori, upperHori;
 
     [SerializeField]
     private float pathChangeDuration;
@@ -30,7 +30,7 @@ public class PathCurveController : MonoBehaviour
         {
             pathChangeInProgress = true;
             randomX = Random.Range(lowerHori, upperHori);
-            randomY = Random.Range(lowerVert, upperVert);
+            //randomY = Random.Range(lowerVert, upperVert);
             startX = cwc.bendHorizontalSize;
             startY = cwc.bendVerticalSize;
             t = 0;
@@ -44,7 +44,7 @@ public class PathCurveController : MonoBehaviour
     {
         t += Time.deltaTime / time;
         cwc.bendHorizontalSize = Mathf.Lerp(startX, targetX, t);
-        cwc.bendVerticalSize = Mathf.Lerp(startY, targetY, t);
+        //cwc.bendVerticalSize = Mathf.Lerp(startY, targetY, t);
 
         if (t >= 1)
         {

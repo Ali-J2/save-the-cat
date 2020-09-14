@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-namespace AmazingAssets.CurvedWorld.Example
+namespace SaveTheCat
 {
     public class RunnerChunk : MonoBehaviour
     {
