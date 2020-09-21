@@ -3,7 +3,6 @@ using System.Collections;
 
 namespace SaveTheCat
 {
-
     public class SpawnedObject : MonoBehaviour
     {
         public Vector3 moveDirection = new Vector3(1, 0, 0);    //Set by spawner after instantiating

@@ -15,6 +15,8 @@ namespace SaveTheCat
         private float gameTimer = 0;
         public event EventHandler GameSpeedChanged;
         public CurvedWorldController CurvedWorldController;
+        public int laneCount = 3;
+        public float laneWidth = 4;
 
         private void OnEnable()
         {

@@ -6,11 +6,6 @@ namespace SaveTheCat
     public class LaneRunner : Player
     {
         [SerializeField]
-        private float laneWidth;
-        [SerializeField]
-        private int laneCount;
-
-        [SerializeField]
         public int lane
         {
             get;
@@ -45,14 +40,14 @@ namespace SaveTheCat
             }
             else if (arrow.arrowType == ArrowObstacle.ArrowType.RightMost)
             {
-                lane = laneCount - 1;
+                lane = GameControl.Instance.laneCount - 1;
             }
             else if (arrow.arrowType == ArrowObstacle.ArrowType.Right)
             {
-                lane = Mathf.Min(lane + 1, laneCount - 1);
+                lane = Mathf.Min(lane + 1, GameControl.Instance.laneCount - 1);
             }
 
-            Vector3 newPos = new Vector3(0, 0, -lane * laneWidth);
+            Vector3 newPos = new Vector3(0, 0, -lane * GameControl.Instance.laneWidth);
             iTween.MoveTo(this.gameObject, iTween.Hash("position", newPos, "islocal", true));
         }
     }
